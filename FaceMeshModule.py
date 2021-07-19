@@ -2,6 +2,8 @@ import cv2
 import mediapipe as mp
 import time
 
+import resize as rs
+
 
 class FaceMeshDetector:
     def __init__(self, static_image_mode=False, max_num_faces=4,
@@ -20,9 +22,8 @@ class FaceMeshDetector:
         self.results = 0
 
     def findFaceMesh(self, img, draw=True):
+        img = rs.resize(img)
         h, w, c = img.shape
-        ratio = w / h
-        img = cv2.resize(img, (int(720 * ratio), 720))
         imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         results = self.faceMesh.process(imgRGB)
 

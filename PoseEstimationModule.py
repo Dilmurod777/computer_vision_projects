@@ -2,6 +2,8 @@ import cv2
 import mediapipe as mp
 import time
 
+import resize as rs
+
 
 class PoseDetector:
     def __init__(self,
@@ -58,9 +60,7 @@ def main():
     while cap.isOpened():
         success, img = cap.read()
         if success:
-            h, w, c = img.shape
-            ratio = w / h
-            img = cv2.resize(img, (int(720 * ratio), 720))
+            img = rs.resize(img)
             img = detector.findPose(img)
 
             cTime = time.time()

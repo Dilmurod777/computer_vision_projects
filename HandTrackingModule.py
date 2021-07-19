@@ -2,6 +2,8 @@ import cv2
 import mediapipe as mp
 import time
 
+import resize as rs
+
 
 class HandDetector:
     def __init__(self, mode=False, max_hands=2, min_detection_confidence=0.5, min_tracking_confidence=0.5):
@@ -19,6 +21,7 @@ class HandDetector:
         self.results = 0
 
     def findHands(self, img, draw=True):
+        img = rs.resize(img)
         img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         self.results = self.hands.process(img_rgb)
 
